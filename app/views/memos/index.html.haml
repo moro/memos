@@ -1,0 +1,24 @@
+- model_class = Memo
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:title)
+      %th= model_class.human_attribute_name(:body)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @memos.each do |memo|
+      %tr
+        %td= link_to memo.id, memo_path(memo)
+        %td= memo.title
+        %td= memo.body
+        %td= l memo.created_at
+        %td
+          = link_to t('.show', :default => t("helpers.links.show")), memo_path(memo), :class => 'btn btn-default btn-xs'
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_memo_path(memo), :class => 'btn btn-default btn-xs'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), memo_path(memo), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'                                                                            |
+
+= link_to t('.new', :default => t("helpers.links.new")), new_memo_path, :class => 'btn btn-primary'
